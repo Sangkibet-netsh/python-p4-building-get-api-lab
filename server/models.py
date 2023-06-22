@@ -13,6 +13,8 @@ class Bakery(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     baked_goods = db.relationship("BakedGood", backref="bakery", lazy=True)
 
 class BakedGood(db.Model, SerializerMixin):
@@ -21,4 +23,6 @@ class BakedGood(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     bakery_id = db.Column(db.Integer, db.ForeignKey("bakeries.id"), nullable=False)
